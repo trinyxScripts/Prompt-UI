@@ -92,6 +92,7 @@ end
 function promptRet.create(title, description, primary, secondary, callback)
 	local prompt = useStudio and script.Parent:FindFirstChild('Prompt') or game:GetObjects("rbxassetid://97206084643256")[1]
 
+	
 	prompt.Enabled = false
 
 	if gethui then
@@ -126,7 +127,12 @@ function promptRet.create(title, description, primary, secondary, callback)
 	prompt.Policy.Title.Text = title
 	prompt.Policy.Notice.Text = description
 	prompt.Policy.Actions.Primary.Title.Text = primary
+	if secondary == "" then
+		prompt.Policy.Actions.Secondary.Title:Destroy()
+	else
 	prompt.Policy.Actions.Secondary.Title.Text = secondary
+	end
+	
 	
 	-- Handle the button clicks and trigger the callback
 	prompt.Policy.Actions.Primary.Interact.MouseButton1Click:Connect(function()
